@@ -1,0 +1,17 @@
+sounddevice
+numpy
+keyboard
+python-dotenv
+pyloudnorm
+aiofiles
+# whisper
+openai-whisper @ git+https://github.com/openai/whisper.git@0a60fcaa9b86748389a656aa013c416030287d47
+
+# coqui
+TTS
+pydub
+torch==2.0.1
+torchaudio==2.0.2
+
+# lmstudio
+openai

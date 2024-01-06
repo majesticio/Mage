@@ -1,0 +1,6 @@
+prompts
+recordings
+responses
+Pipfile
+chat_history.json
+__pycache__
