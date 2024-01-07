@@ -39,7 +39,7 @@ class ChatAssistant:
             return None
         oldest_file = min(files, key=lambda x: os.path.getmtime(os.path.join(self.prompts_folder, x)))
         return os.path.join(self.prompts_folder, oldest_file)
-
+   
     def chat(self):
         while True:
             try:
@@ -48,6 +48,9 @@ class ChatAssistant:
                     with open(oldest_prompt, "r") as file:
                         user_input = file.read()
                     os.remove(oldest_prompt)
+
+                    # Add user input to history
+                    self.history.append({"role": "user", "content": user_input})
 
                     completion = self.client.chat.completions.create(
                         model="local-model",
@@ -61,14 +64,16 @@ class ChatAssistant:
                         if chunk.choices[0].delta.content:
                             new_message["content"] += chunk.choices[0].delta.content
 
-                    self.history.append(new_message)
-                    self.save_history()
+                    # Append to history only if there's content
+                    if new_message["content"].strip():
+                        self.history.append(new_message)
+                        self.save_history()
 
-                    # Save the response
-                    timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
-                    response_file = os.path.join(self.responses_folder, f"response_{timestamp}.txt")
-                    with open(response_file, "w") as file:
-                        file.write(new_message["content"])
+                        # Save the response
+                        timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
+                        response_file = os.path.join(self.responses_folder, f"response_{timestamp}.txt")
+                        with open(response_file, "w") as file:
+                            file.write(new_message["content"])
 
                 else:
                     time.sleep(1)  # Wait for 1 second before checking again
