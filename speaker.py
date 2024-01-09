@@ -7,10 +7,13 @@ from pydub import AudioSegment
 from pydub.playback import play
 import torch
 
+# MODEL_NAME = "tts_models/en/jenny/jenny"
+MODEL_NAME = "tts_models/en/vctk/vits"
+
 class Speaker:
-    def __init__(self, model_name="tts_models/en/vctk/vits", wav_dir="../speaker/", responses_dir="responses/"):
+    def __init__(self, model_name=MODEL_NAME, wav_dir="../speaker/", responses_dir="responses/"):
         self.device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.tts_engine = TTS(model_name=model_name, progress_bar=False).to(self.device)
+        self.tts_engine = TTS(model_name=model_name, progress_bar=True).to(self.device)
         self.wav_dir = wav_dir
         self.responses_dir = responses_dir
 
@@ -18,7 +21,8 @@ class Speaker:
             os.makedirs(self.wav_dir)
 
     def speak(self, text, out_path):
-        self.tts_engine.tts_to_file(text=text, file_path=out_path, speaker="p230")
+        # self.tts_engine.tts_to_file(text=text, file_path=out_path) # jenny
+        self.tts_engine.tts_to_file(text=text, file_path=out_path, speaker="p230") # vits 
         audio = AudioSegment.from_wav(out_path)
         play(audio)
         os.remove(out_path)

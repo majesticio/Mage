@@ -3,8 +3,15 @@ import whisper
 import time
 from datetime import datetime
 
+"""
+    WHISPER: models include tiny, base, small, medium, and large (lil bit to load)
+"""
+
+MODEL_NAME = "tiny"
+
 class Transcriber:
-    def __init__(self, model_name="tiny", recordings_folder="recordings", prompts_folder="prompts"):
+    
+    def __init__(self, model_name=MODEL_NAME, recordings_folder="recordings", prompts_folder="prompts"):
         self.model = whisper.load_model(model_name)
         self.recordings_folder = recordings_folder
         self.prompts_folder = prompts_folder

@@ -39,7 +39,7 @@ class ChatAssistant:
             return None
         oldest_file = min(files, key=lambda x: os.path.getmtime(os.path.join(self.prompts_folder, x)))
         return os.path.join(self.prompts_folder, oldest_file)
-   
+
     def chat(self):
         while True:
             try:
@@ -51,6 +51,9 @@ class ChatAssistant:
 
                     # Add user input to history
                     self.history.append({"role": "user", "content": user_input})
+
+                    # Print the user's prompt prefixed with a green '>'
+                    print("\033[92m> \033[0m" + user_input)
 
                     completion = self.client.chat.completions.create(
                         model="local-model",
@@ -75,6 +78,10 @@ class ChatAssistant:
                         with open(response_file, "w") as file:
                             file.write(new_message["content"])
 
+                        # Printing the assistant's response, followed by a newline
+                        print("\n\033[95mMage:\033[0m " + new_message["content"])
+                        print()  # New line after assistant's response
+
                 else:
                     time.sleep(1)  # Wait for 1 second before checking again
 
@@ -83,6 +90,7 @@ class ChatAssistant:
                 break
 
         print("Session ended.")
+
 
 # Example usage
 if __name__ == "__main__":
