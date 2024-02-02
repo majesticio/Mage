@@ -5,7 +5,7 @@ alacritty -e sh -c 'echo "Running transcriber.py"; python transcriber.py; echo "
 sleep 10
 
 echo "Starting speaker.py in a new Alacritty window..."
-alacritty -e sh -c 'echo "Running speaker.py"; python gleaker.py; echo "speaker.py completed"' &
+alacritty -e sh -c 'echo "Running speaker.py"; python speaker.py; echo "speaker.py completed"' &
 sleep 10
 
 echo "Starting recorder.py with sudo in a new Alacritty window..."
