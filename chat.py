@@ -63,6 +63,8 @@ class ChatAssistant:
 if __name__ == "__main__":
     assistant = ChatAssistant(
         base_url="http://localhost:1234/v1",
+        # base_url="http://192.168.5.58:8000/v1",
+
         api_key="not-needed",
         history_file="chat_history.json"
     )

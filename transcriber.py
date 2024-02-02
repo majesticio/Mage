@@ -7,7 +7,7 @@ from datetime import datetime
     WHISPER: models include tiny, base, small, medium, and large (lil bit to load)
 """
 
-MODEL_NAME = "tiny"
+MODEL_NAME = "small"
 
 class Transcriber:
     

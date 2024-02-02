@@ -56,7 +56,7 @@ class ChatAssistant:
                     print("\033[92m> \033[0m" + user_input)
 
                     completion = self.client.chat.completions.create(
-                        model="local-model",
+                        model="mistralai/Mistral-7B-Instruct-v0.2",
                         messages=self.history[-self.max_history_entries:],
                         temperature=0.7,
                         stream=True,
@@ -96,6 +96,8 @@ class ChatAssistant:
 if __name__ == "__main__":
     assistant = ChatAssistant(
         base_url="http://localhost:1234/v1",
+        # base_url="http://localhost:8000/v1",
+        # base_url="http://192.168.5.57:1234/v1",
         api_key="not-needed",
         history_file="chat_history.json"
     )

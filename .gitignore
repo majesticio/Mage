@@ -2,5 +2,6 @@ prompts
 recordings
 responses
 Pipfile
+jailbreak.json
 chat_history.json
 __pycache__
